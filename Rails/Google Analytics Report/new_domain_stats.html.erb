@@ -1,0 +1,82 @@
+<div class="page-header">
+  <h1>Domain Stat Report</h1>
+</div>
+<div class="form-actions">
+  <%= form_tag '/revenues/reports/new_domain_stats', method: :get, class: 'form-horizontal' do %>
+    <div class="row">
+      <div class="col-sm-2">
+        <%= select_tag 'domain_id', options_from_collection_for_select(@domains, :id, :name, params[:domain_id]), class: 'form-control', prompt: '--Select Domain--' %>
+      </div>
+      <div class="col-sm-2">
+        <%= select_tag 'traffic_source_id', options_from_collection_for_select(@traffic_sources, :id, :name, params[:traffic_source_id]), class: 'form-control', prompt: '--Select Source--' %>
+      </div>
+    </div>
+    <br />
+    <div class="row-fluid">
+      <p>Dimensions:</p>
+      <% @dimensions_list.each do |key, dimension| %>
+
+        <%= check_box_tag 'dimensions[]', dimension, @dimensions.include?(dimension) %>
+        <%= label_tag 'dimensions[]', key %>
+      <% end %>
+    </div>
+    <br />
+    <div class="row-fluid">
+      <%= submit_tag 'Submit', class: 'btn blue' %>
+    </div>
+  <% end %>
+</div>
+<br />
+<% if @stats.present? %>
+<table class="table table-striped" id="domain-stats-table">
+  <thead>
+    <tr>
+      <% @stats[:rows].first.each_key do |column_header| %>
+        <% unless column_header == :signature or column_header == :profile_id %>
+          <th><%= column_header.humanize %></th>
+        <% end %>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stats[:rows].each do |row| %>
+      <tr>
+        <% row.each do |key,value| %>
+          <%=
+            case key
+            when 'date'
+              "<td>#{value}</td>".html_safe
+            when 'source'
+              "<td>#{value}</td>".html_safe
+            when 'page_path_level1'
+              "<td>#{value}</td>".html_safe
+            when 'device_category'
+              "<td>#{value}</td>".html_safe
+            when 'campaign'
+              "<td>#{value}</td>".html_safe
+            when 'sessions'
+              "<td>#{value}</td>".html_safe
+            when 'pageviews'
+              "<td>#{value}</td>".html_safe
+            when 'avg_timeon_site'
+              "<td>#{number_with_precision(value, precision: 2)}</td>".html_safe
+            when 'bounce_rate'
+              "<td>#{number_to_percentage(value, precision: 2)}</td>".html_safe
+            when 'cost'
+              "<td>#{number_with_precision(value, precision: 2)}</td>".html_safe
+            when 'cpc'
+              "<td>#{number_with_precision(value, precision: 4)}</td>".html_safe
+            when 'revenue'
+              "<td>#{number_with_precision(value, precision: 2)}</td>".html_safe
+            when 'rps'
+              "<td>#{number_with_precision(value, precision: 4)}</td>".html_safe
+            when 'roi'
+              "<td>#{number_to_percentage(value, precision: 2)}</td>".html_safe
+            end
+          %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

@@ -1,0 +1,68 @@
+<div id="dashboard_realtime_container">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue">
+          <div class="visual">
+            <i class="fa fa-signal"></i>
+          </div>
+          <div class="details">
+            <div class="number" id="dashboard_total_impressions">
+            </div>
+            <div class="desc">
+              Total Impressions
+            </div>
+          </div>
+          <%= link_to raw('View more <i class="m-icon-swapright m-icon-white"></i>'), impression_report_path, {class: 'more'} %>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green">
+          <div class="visual">
+            <i class="fa fa-tachometer"></i>
+          </div>
+          <div class="details">
+            <div class="number" id="dashboard_avg_impressions"></div>
+            <div class="desc">Avg Impressions per Second</div>
+          </div>
+          <a class="more" href="#">
+            View more <i class="m-icon-swapright m-icon-white"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple">
+          <div class="visual">
+            <i class="fa fa-globe"></i>
+          </div>
+          <div class="details">
+            <div class="number" id="dashboard_total_subids"></div>
+            <div class="desc">Total SubID's</div>
+          </div>
+          <%= link_to raw('View more <i class="m-icon-swapright m-icon-white"></i>'), subid_report_path, {class: 'more'} %>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- BEGIN DYNAMIC CHART PORTLET-->
+        <div class="portlet box blue">
+          <div class="portlet-title">
+            <div class="caption"><i class="fa fa-reorder"></i>Average Impressions Per Second</div>
+            <div class="tools">
+              <a href="javascript:;" class="collapse"></a>
+              <a href="#portlet-config" data-toggle="modal" class="config"></a>
+              <a href="javascript:;" class="reload"></a>
+              <a href="javascript:;" class="remove"></a>
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div id="chart_4" class="chart"></div>
+          </div>
+        </div>
+        <!-- END DYNAMIC CHART PORTLET-->
+      </div>
+    </div>
+</div>
